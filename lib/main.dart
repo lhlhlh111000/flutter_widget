@@ -1,36 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sm_network/sm_network.dart';
+import 'package:get/get.dart';
+import 'package:widget_test/middlewares/GlobalMiddlewares.dart';
 import 'package:widget_test/pages/my_home_page.dart';
+import 'package:widget_test/pages/second_page.dart';
 import 'package:widget_test/router/test_router_observer.dart';
+import 'package:widget_test/tracker/a_tracker.dart';
 
 void main() {
-  Http.shared.config(
-    options: HttpBaseOptions(
-      baseUrl: 'https://www.wanandroid.com/',
-      connectTimeout: const Duration(seconds: 5),
-      receiveTimeout: const Duration(seconds: 5),
-      validateStatus: (status) => status != null && status == 200,
-      headers: {'user-agent': 'sm_network', 'common-header': 'xx', 'accept': 'application/json'},
-      log: HttpLog(
-        error: (error, stackTrace) {
-          print('$error\n$stackTrace');
-        },
-      ),
-      // ignore: avoid_redundant_argument_values
-      converterOptions: DefaultConverterOptions(
-        // ignore: avoid_redundant_argument_values
-        code: 'errorCode',
-        // ignore: avoid_redundant_argument_values
-        data: 'data',
-        // ignore: avoid_redundant_argument_values
-        message: 'errorMsg',
-        // ignore: avoid_redundant_argument_values
-        status: (status, data) => status == 1,
-      ),
-    ),
-    interceptors: [LogcatInterceptor()],
-  );
-
+  WidgetsFlutterBinding.ensureInitialized();
+  ATracker.init();
   runApp(const MyApp());
 }
 
@@ -41,14 +19,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      navigatorObservers: [sObserver],
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/home',
+      getPages: [
+        GetPage(
+          name: '/home',
+          page: () => const MyHomePage(title: 'Flutter Demo Home Page'),
+        ),
+        GetPage(
+          name: '/second',
+          page: () => const SecondPage(),
+        ),
+      ]
+          .map((e) => e = e.copy(middlewares: [
+                GlobalMiddlewares(
+                  pageName: e.name,
+                ),
+                ...e.middlewares ?? []
+              ]))
+          .toList(),
     );
   }
 }

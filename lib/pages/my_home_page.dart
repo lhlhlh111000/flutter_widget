@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widget_test/net/get_hot_key_session.dart';
+import 'package:get/get.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -11,21 +11,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  String msg = 'init';
-
-  Future<void> _testNet() async {
-    setState(() {
-      _counter++;
-    });
-
-    final resp = await GetHotKeySession().request();
-    setState(() {
-      msg = resp.list.toString() ?? '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,17 +23,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              msg,
+              'hello',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headlineMedium,
-            // ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _testNet,
+        onPressed: () => Get.toNamed("/second"),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
