@@ -7,7 +7,7 @@ mixin ATracker {
     WidgetsBinding.instance.addObserver(AWidgetsBindingObserver());
   }
 
-  static void onPageEnter({required String pageName, String? type}) {
+  static void onPageEnter({required String pageName, String? type, bool popExit = false}) {
     final pageType = type ?? 'normal';
 
     Page? prePage;
