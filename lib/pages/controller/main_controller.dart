@@ -32,6 +32,23 @@ class MainController extends GetxController with TabPageTrackerMixin {
     super.onInit();
 
     onPageEnter();
+
+    /// mock hor message
+    Future.delayed(
+      3.seconds,
+      () => Get.showSnackbar(
+        GetSnackBar(
+          title: 'hello',
+          message: 'mock message',
+          snackPosition: SnackPosition.TOP,
+          duration: const Duration(seconds: 3),
+          onTap: (_) {
+            Get.back();
+            Get.toNamed('/second');
+          },
+        ),
+      ),
+    );
   }
 
   void switchPage(int index) {
