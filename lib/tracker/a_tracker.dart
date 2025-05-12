@@ -12,7 +12,7 @@ mixin ATracker {
 
     Page? prePage;
     if (historyPageStack.isNotEmpty) {
-      prePage = historyPageStack.last;
+      prePage = popExit ? historyPageStack.removeLast() : historyPageStack.last;
     }
 
     final enterPage = Page(name: pageName, type: pageType, prePage: prePage);

@@ -4,11 +4,16 @@ import 'package:widget_test/tracker/tab_page_tracker.dart';
 
 class MainController extends GetxController with TabPageTrackerMixin {
   final PageController pageController = PageController(initialPage: 0);
-
   int currentPage = 0;
 
   @override
   int get trackPageIndex => currentPage;
+
+  @override
+  TabTrackDetector? get tabTrackDetector => (index) {
+        /// filter home page
+        return index != 0;
+      };
 
   @override
   TabPageNameBuilder get tabPageNameBuilder => (index) {
@@ -18,9 +23,16 @@ class MainController extends GetxController with TabPageTrackerMixin {
           case 2:
             return 'school';
           default:
-            return 'home';
+            return '';
         }
       };
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    onPageEnter();
+  }
 
   void switchPage(int index) {
     currentPage = index;
