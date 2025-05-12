@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'second_page.dart';
 
 class WebPage extends StatefulWidget {
   @override
@@ -30,9 +29,7 @@ class _WebPageState extends State<WebPage> {
       ),
       body: WebViewWidget(controller: controller),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage()));
-        },
+        onPressed: () => Get.toNamed("/second"),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
