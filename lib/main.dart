@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_test/middlewares/GlobalMiddlewares.dart';
+import 'package:widget_test/middlewares/global_middlewares.dart';
 import 'package:widget_test/pages/main_page.dart';
 import 'package:widget_test/pages/second_page.dart';
 import 'package:widget_test/tracker/a_tracker.dart';
