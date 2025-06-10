@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_test/tracker/tab_page_tracker.dart';
 
-class MainController extends GetxController with TabPageTrackerMixin {
+class MainController extends GetxController {
   final PageController pageController = PageController(initialPage: 0);
   int currentPage = 0;
 
@@ -10,28 +9,8 @@ class MainController extends GetxController with TabPageTrackerMixin {
   int get trackPageIndex => currentPage;
 
   @override
-  TabTrackDetector? get tabTrackDetector => (index) {
-        /// filter home page
-        return index != 0;
-      };
-
-  @override
-  TabPageNameBuilder get tabPageNameBuilder => (index) {
-        switch (index) {
-          case 1:
-            return 'business';
-          case 2:
-            return 'school';
-          default:
-            return '';
-        }
-      };
-
-  @override
   void onInit() {
     super.onInit();
-
-    onPageEnter();
 
     /// mock hor message
     Future.delayed(
@@ -54,8 +33,6 @@ class MainController extends GetxController with TabPageTrackerMixin {
   void switchPage(int index) {
     currentPage = index;
     pageController.jumpToPage(index);
-
-    onPageEnter();
 
     update();
   }

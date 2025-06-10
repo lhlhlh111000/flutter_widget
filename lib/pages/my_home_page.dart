@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:widget_test/pages/controller/home_controller.dart';
+
+import 'controller/FenixTestController.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -24,36 +25,31 @@ class _MyHomePageState extends State<MyHomePage> with AutomaticKeepAliveClientMi
       body: GetBuilder<HomeController>(
         init: HomeController(),
         builder: (controller) {
-          return VisibilityDetector(
-            key: const Key('home'),
-            child: Column(
-              children: [
-                TabBar(
-                  tabs: controller.tabs.map((e) => Tab(text: e)).toList(),
+          return Column(
+            children: [
+              TabBar(
+                tabs: controller.tabs.map((e) => Tab(text: e)).toList(),
+                controller: controller.tabController,
+              ),
+              Expanded(
+                child: TabBarView(
                   controller: controller.tabController,
+                  children: controller.tabs.map((e) {
+                    return Center(
+                      child: Text(e),
+                    );
+                  }).toList(),
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: controller.tabController,
-                    children: controller.tabs.map((e) {
-                      return Center(
-                        child: Text(e),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ],
-            ),
-            onVisibilityChanged: (info) {
-              if (info.visibleFraction >= 0.8) {
-                controller.onPageEnter();
-              }
-            },
+              ),
+            ],
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed("/second"),
+        onPressed: () {
+          final controller = Get.find<FenixTestController>();
+          print('获取FenixTestController的值${controller.count.value}');
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),

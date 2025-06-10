@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_test/tracker/tab_page_tracker.dart';
+import 'package:widget_test/pages/controller/FenixTestController.dart';
 
-class HomeController extends GetxController with GetTickerProviderStateMixin, TabPageTrackerMixin {
+class HomeController extends GetxController with GetTickerProviderStateMixin {
   final tabs = <String>['爽文', '玄幻', '穿越'];
 
   TabController get tabController => _tabController;
@@ -10,18 +10,28 @@ class HomeController extends GetxController with GetTickerProviderStateMixin, Ta
 
   HomeController() {
     _tabController = TabController(length: tabs.length, vsync: this);
-    _tabController.addListener(() {
-      if (_tabController.index != _tabController.previousIndex) {
-        onPageEnter();
-      }
-    });
+    _tabController.addListener(() {});
   }
 
   @override
-  int get trackPageIndex => _tabController.index;
+  void onInit() {
+    super.onInit();
 
-  @override
-  TabPageNameBuilder? get tabPageNameBuilder => (index) {
-        return 'home_${tabs[index]}';
-      };
+    Future.delayed(50.milliseconds, () {
+      Get.generalDialog(
+        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+          return const Material(
+            color: Colors.transparent,
+            child: SizedBox(width: 300, height: 300),
+          );
+        },
+        barrierLabel: '',
+      );
+    });
+
+    Future.delayed(100.milliseconds, () {
+      final controller = Get.find<FenixTestController>();
+      controller.count.value = 2;
+    });
+  }
 }

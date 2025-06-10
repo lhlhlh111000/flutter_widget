@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget_test/middlewares/global_middlewares.dart';
+import 'package:widget_test/pages/bindings/HomeBindings.dart';
 import 'package:widget_test/pages/main_page.dart';
 import 'package:widget_test/pages/second_page.dart';
-import 'package:widget_test/tracker/a_tracker.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  ATracker.init();
   runApp(const MyApp());
 }
 
@@ -27,19 +25,11 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/',
             page: () => MainPage(),
-            children: [
-              GetPage(
-                name: '/second',
-                page: () => const SecondPage(),
-              ),
-            ]
-                .map((e) => e = e.copy(middlewares: [
-                      GlobalMiddlewares(
-                        pageName: e.name,
-                      ),
-                      ...e.middlewares ?? []
-                    ]))
-                .toList(),
+            binding: HomeBindings(),
+          ),
+          GetPage(
+            name: '/second',
+            page: () => const SecondPage(),
           ),
         ]);
   }
