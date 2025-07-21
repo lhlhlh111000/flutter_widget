@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get/get.dart';
 import 'package:widget_test/pages/bindings/HomeBindings.dart';
 import 'package:widget_test/pages/main_page.dart';
@@ -6,6 +7,7 @@ import 'package:widget_test/pages/second_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterForegroundTask.initCommunicationPort();
   runApp(const MyApp());
 }
 

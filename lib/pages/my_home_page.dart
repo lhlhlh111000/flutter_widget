@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widget_test/pages/controller/home_controller.dart';
 
-import 'controller/FenixTestController.dart';
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -47,8 +45,7 @@ class _MyHomePageState extends State<MyHomePage> with AutomaticKeepAliveClientMi
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final controller = Get.find<FenixTestController>();
-          print('获取FenixTestController的值${controller.count.value}');
+          Get.toNamed('/second');
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
