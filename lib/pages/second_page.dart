@@ -3,8 +3,6 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:widget_test/pages/controller/SecondController.dart';
 
-import '../forgeground/my_task_handler.dart';
-
 class SecondPage extends StatelessWidget with RouteAware {
   const SecondPage({super.key});
 
@@ -81,10 +79,6 @@ class SecondPage extends StatelessWidget with RouteAware {
       ),
       foregroundTaskOptions: ForegroundTaskOptions(
         eventAction: ForegroundTaskEventAction.repeat(5000),
-        autoRunOnBoot: true,
-        autoRunOnMyPackageReplaced: true,
-        allowWakeLock: true,
-        allowWifiLock: true,
       ),
     );
   }
@@ -103,9 +97,7 @@ class SecondPage extends StatelessWidget with RouteAware {
         serviceId: 256,
         notificationTitle: 'Foreground Service is running',
         notificationText: 'Tap to return to the app',
-        notificationIcon: null,
         notificationInitialRoute: '/',
-        callback: startCallback,
       );
     }
   }
